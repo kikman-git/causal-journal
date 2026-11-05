@@ -1,0 +1,162 @@
+#!/usr/bin/env python3
+"""granger — the only way in or out of the causal attribution journal.
+
+Writes:  add · flag · revise
+Reads:   recent · show · driver · channel · instrument · context · contradicts
+         book · brief · week · flags · registries · measure · resolve · validate
+
+Every command prints exactly one JSON object. {"ok": false, "errors": [...]}
+means nothing was written.
+"""
+import argparse
+import json
+import os
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "lib"))
+
+import book as book_mod            # noqa: E402
+import brief as brief_mod          # noqa: E402
+import db                          # noqa: E402
+import measure as measure_mod      # noqa: E402
+import query as q                  # noqa: E402
+import registry as R               # noqa: E402
+import week as week_mod            # noqa: E402
+import write as w                  # noqa: E402
+
+
+def emit(obj, code=0):
+    json.dump(obj, sys.stdout, ensure_ascii=False, indent=1, default=str)
+    sys.stdout.write("\n")
+    sys.exit(code)
+
+
+def fail(errors):
+    emit({"ok": False, "errors": errors if isinstance(errors, list) else [errors]}, 1)
+
+
+def read_json(arg):
+    raw = sys.stdin.read() if arg == "-" else open(arg).read()
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError as e:
+        fail(f"input is not valid JSON: {e}")
+
+
+def main():
+    p = argparse.ArgumentParser(prog="granger", description=__doc__,
+                                formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    sub.add_parser("init", help="create/upgrade the store and seed vocabularies")
+    sub.add_parser("validate", help="integrity check")
+    sub.add_parser("flags", help="the flag vocabulary")
+    sub.add_parser("registries", help="drivers, channels, instruments with usage counts")
+
+    a = sub.add_parser("add", help="write one observation (the pen)")
+    a.add_argument("--json", required=True, metavar="FILE|-")
+    f = sub.add_parser("flag", help="raise flags after seeing the measurements")
+    f.add_argument("--json", required=True, metavar="FILE|-")
+    rv = sub.add_parser("revise", help="supersede an observation (never an edit)")
+    rv.add_argument("--json", required=True, metavar="FILE|-")
+
+    r = sub.add_parser("recent", help="latest observations")
+    r.add_argument("-n", type=int, default=20)
+    r.add_argument("--all", action="store_true", help="include superseded")
+    s = sub.add_parser("show", help="one observation in full")
+    s.add_argument("id", type=int)
+    d = sub.add_parser("driver", help="a driver's track record")
+    d.add_argument("slug")
+    c = sub.add_parser("channel", help="a mechanism's track record")
+    c.add_argument("slug")
+    i = sub.add_parser("instrument", help="what has been said about one name")
+    i.add_argument("symbol")
+    ctx = sub.add_parser("context", help="pre-write intel for the names in a message")
+    ctx.add_argument("--instrument", action="append", default=[])
+    ctx.add_argument("--driver", action="append", default=[])
+    cd = sub.add_parser("contradicts", help="recent claims on this name pointing the other way")
+    cd.add_argument("symbol")
+    cd.add_argument("direction", choices=["up", "down"])
+    cd.add_argument("--days", type=int, default=14)
+
+    sub.add_parser("book", help="open positions and recent closes (read-only)")
+    br = sub.add_parser("brief", help="the 07:00 brief's events for a date")
+    br.add_argument("--date", default=None)
+    wk = sub.add_parser("week", help="the weekly read bundle")
+    wk.add_argument("--asof", default=None)
+    wk.add_argument("--days", type=int, default=7)
+
+    m = sub.add_parser("measure", help="probe the tape; writes nothing to the journal")
+    m.add_argument("symbol")
+    m.add_argument("--benchmark", default=None)
+    m.add_argument("--date", default=None)
+    rs = sub.add_parser("resolve", help="preview registry resolution; writes nothing")
+    rs.add_argument("kind", choices=["instrument", "driver", "channel"])
+    rs.add_argument("text")
+
+    args = p.parse_args()
+
+    if args.cmd == "init":
+        db.init(verbose=False)
+        con = db.connect()
+        emit({"ok": True, "db": db.DB_PATH, "media": db.MEDIA_DIR, **q.validate(con)["counts"]})
+
+    con = db.connect()
+
+    try:
+        if args.cmd == "add":
+            emit(w.add(read_json(args.json), con))
+        if args.cmd == "flag":
+            emit(w.flag(read_json(args.json), con))
+        if args.cmd == "revise":
+            payload = read_json(args.json)
+            if not payload.get("supersedes"):
+                fail("revise: 'supersedes' (the observation id being corrected) is required")
+            emit(w.add(payload, con))
+    except w.Invalid as e:
+        fail(e.errors)
+
+    if args.cmd == "recent":
+        emit({"ok": True, "observations": q.recent(con, args.n, args.all)})
+    if args.cmd == "show":
+        o = q.observation(con, args.id)
+        emit({"ok": True, "observation": o} if o else {"ok": False, "errors": [f"no observation {args.id}"]},
+             0 if o else 1)
+    if args.cmd == "driver":
+        emit({"ok": True, **q.driver(con, args.slug)})
+    if args.cmd == "channel":
+        emit({"ok": True, **q.channel(con, args.slug)})
+    if args.cmd == "instrument":
+        emit({"ok": True, **q.instrument(con, args.symbol)})
+    if args.cmd == "context":
+        emit({"ok": True, **q.context(con, args.instrument, args.driver)})
+    if args.cmd == "contradicts":
+        emit({"ok": True, "opposite": q.contradicts(con, args.symbol, args.direction, args.days)})
+    if args.cmd == "flags":
+        emit({"ok": True, "flags": q.flags_vocab(con)})
+    if args.cmd == "registries":
+        emit({"ok": True, **q.registries(con)})
+    if args.cmd == "validate":
+        emit({"ok": True, **q.validate(con)})
+    if args.cmd == "book":
+        emit({"ok": True, **book_mod.positions()})
+    if args.cmd == "brief":
+        emit({"ok": True, **brief_mod.events_for(args.date or db.now().date().isoformat())})
+    if args.cmd == "week":
+        emit({"ok": True, **week_mod.bundle(con, args.asof, args.days)})
+    if args.cmd == "measure":
+        emit({"ok": True, **measure_mod.measure(con, args.symbol, args.benchmark, args.date)})
+    if args.cmd == "resolve":
+        if args.kind == "instrument":
+            row, created, note = R.resolve_instrument(con, args.text, create=False)
+        elif args.kind == "driver":
+            row, created, note = R.resolve_driver(con, args.text)
+        else:
+            row, created, note = R.resolve_channel(con, args.text)
+        con.rollback()          # resolve is a preview. it writes nothing.
+        emit({"ok": row is not None, "resolved": row, "would_create": created,
+              "note": note, "errors": [note] if row is None and note else []})
+
+
+if __name__ == "__main__":
+    main()

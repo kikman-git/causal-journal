@@ -1,0 +1,61 @@
+# causal-journal
+#
+# The store holds the owner's market beliefs and frozen snapshots of the
+# trading book. It stays on disk (~/.openclaw/data/) and never goes to GitHub.
+
+# --- the journal store: SQLite in WAL mode, so the -wal/-shm sidecars hold data too ---
+*.sqlite
+*.sqlite3
+*.db
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite-journal
+*.db-wal
+*.db-shm
+*.db-journal
+
+# --- media: chart screenshots and attachments (live in ~/.openclaw/data/causal-media/, outside the repo) ---
+causal-media/
+media/
+
+# --- journal exports/dumps if any are ever written as files (none today: the store is SQLite) ---
+observations/
+registry/
+
+# --- secrets and local environment ---
+.env
+.env.*
+!.env.example
+secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+
+# --- Python (CLI is stdlib-only; no venv needed, but keep stray ones out) ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- the planned web UI (causal-web) is Node/Next.js; ignore its output if it ever lands here ---
+node_modules/
+.next/
+*.tsbuildinfo
+
+# --- logs, backups (CLAUDE.md "Next steps" plans a backup script), editor and OS files ---
+*.log
+logs/
+backups/
+*.bak*
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# --- Claude Code local settings (this repo has no shared project skills under .claude/) ---
+.claude/

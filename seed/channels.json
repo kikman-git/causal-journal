@@ -1,0 +1,14 @@
+[
+  {"slug":"rate-path","display":"Rate path repricing","note":"Policy or data shifts expected rates; discount rates and carry reprice."},
+  {"slug":"fx-translation","display":"FX translation","note":"Yen level flows through reported earnings of exporters/importers."},
+  {"slug":"sox-beta","display":"SOX beta","note":"US semis overnight sets the tone for Japanese semi-cap and equipment names."},
+  {"slug":"risk-appetite","display":"Broad risk appetite","note":"Global risk-on/off; high-beta and small-cap amplify."},
+  {"slug":"flows-mechanical","display":"Mechanical flows","note":"SQ, rebalance, ex-date, roll, buyback execution. No opinion required."},
+  {"slug":"guidance","display":"Company guidance / earnings","note":"Single-name fundamental news; revision to forward numbers."},
+  {"slug":"rotation","display":"Sector rotation","note":"Money moving between sectors without a change in aggregate risk."},
+  {"slug":"nim-expansion","display":"Bank NIM expansion","note":"Higher yields widen net interest margin; classic BOJ->banks channel."},
+  {"slug":"commodity-input","display":"Commodity input cost","note":"Energy or materials prices hit margins up or down the chain."},
+  {"slug":"positioning-squeeze","display":"Positioning / squeeze","note":"Crowded side forced out; margin tape and short interest are the evidence."},
+  {"slug":"policy-regulatory","display":"Policy / regulatory","note":"FSA, METI, tax or governance change alters the rules of the game."},
+  {"slug":"supply-chain","display":"Supply chain","note":"A customer or supplier's news propagates along the chain."}
+]

@@ -1,0 +1,16 @@
+[
+  {"slug":"single-factor","severity":"high","description":"One cause named for a move that plainly had several.","auto":1},
+  {"slug":"no-baseline","severity":"high","description":"A relative claim ('hit hardest', 'outperformed') with nothing to compare against.","auto":1},
+  {"slug":"unverified-magnitude","severity":"med","description":"A percentage asserted rather than measured, or materially off the tape.","auto":1},
+  {"slug":"coincident-not-causal","severity":"high","description":"The news landed near the move in time, not behind it in mechanism.","auto":1},
+  {"slug":"mechanical-flow-ignored","severity":"med","description":"SQ, index rebalance, ex-dividend, futures roll, buyback or margin-tape effects unconsidered.","auto":1},
+  {"slug":"proxy-mismatch","severity":"med","description":"A single-name move blamed on a sector-wide cause, or a sector move read off one name.","auto":1},
+  {"slug":"hindsight-framing","severity":"high","description":"Written as though it was knowable in advance; the story fits because the outcome is known.","auto":1},
+  {"slug":"stale-premise","severity":"med","description":"The transmission channel cited has since decayed, and is still being cited.","auto":1},
+  {"slug":"flat-confidence","severity":"low","description":"Confidence carries no information — every claim lands in the same narrow band.","auto":1},
+  {"slug":"position-serving","severity":"high","description":"The observation conveniently argues for an open position, or rationalises a loss.","auto":1},
+  {"slug":"parroting-brief","severity":"med","description":"Restates the 07:00 brief's own channel as an independent observation.","auto":1},
+  {"slug":"evidence-free","severity":"low","description":"A causal claim with no source behind it at all.","auto":1},
+  {"slug":"contradicts-prior","severity":"med","description":"Argues the opposite of a recent observation over the same names, without acknowledging it.","auto":1},
+  {"slug":"unfalsifiable","severity":"med","description":"Nothing about the claim could have turned out false.","auto":1}
+]

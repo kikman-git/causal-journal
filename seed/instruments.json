@@ -1,0 +1,242 @@
+[
+  {
+    "symbol": "^N225",
+    "kind": "index",
+    "display": "Nikkei 225",
+    "aliases": [
+      "nikkei",
+      "n225",
+      "日経",
+      "日経平均",
+      "nikkei225"
+    ]
+  },
+  {
+    "symbol": "1306.T",
+    "kind": "etf",
+    "display": "TOPIX (NEXT FUNDS ETF)",
+    "aliases": [
+      "topix",
+      "トピックス",
+      "topix etf"
+    ]
+  },
+  {
+    "symbol": "2516.T",
+    "kind": "etf",
+    "display": "Growth250 ETF (high-beta proxy)",
+    "aliases": [
+      "growth250",
+      "mothers",
+      "グロース250",
+      "growth"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "JPY=X",
+    "kind": "fx",
+    "display": "USD/JPY",
+    "aliases": [
+      "usdjpy",
+      "usd/jpy",
+      "yen",
+      "円",
+      "ドル円",
+      "jpy"
+    ]
+  },
+  {
+    "symbol": "^VIX",
+    "kind": "index",
+    "display": "VIX",
+    "aliases": [
+      "vix"
+    ]
+  },
+  {
+    "symbol": "^SOX",
+    "kind": "index",
+    "display": "PHLX Semiconductor",
+    "aliases": [
+      "sox",
+      "semis",
+      "半導体指数"
+    ]
+  },
+  {
+    "symbol": "^GSPC",
+    "kind": "index",
+    "display": "S&P 500",
+    "aliases": [
+      "spx",
+      "s&p",
+      "sp500",
+      "s&p500"
+    ]
+  },
+  {
+    "symbol": "^TNX",
+    "kind": "rate",
+    "display": "US 10y yield",
+    "aliases": [
+      "us10y",
+      "10y",
+      "us 10 year"
+    ]
+  },
+  {
+    "symbol": "1617.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Foods",
+    "aliases": [
+      "食品"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1618.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Energy Resources",
+    "aliases": [
+      "エネルギー資源"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1619.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Construction & Materials",
+    "aliases": [
+      "建設・資材"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1620.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Raw Materials & Chemicals",
+    "aliases": [
+      "素材・化学"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1621.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Pharmaceutical",
+    "aliases": [
+      "医薬品"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1622.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Automobiles & Transportation",
+    "aliases": [
+      "自動車・輸送機"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1623.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Steel & Nonferrous",
+    "aliases": [
+      "鉄鋼・非鉄"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1624.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Machinery",
+    "aliases": [
+      "機械"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1625.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Electric Appliances & Precision",
+    "aliases": [
+      "電機・精密"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1626.T",
+    "kind": "etf",
+    "display": "TOPIX-17 IT & Services, Others",
+    "aliases": [
+      "情報通信・サービスその他"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1627.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Electric Power & Gas",
+    "aliases": [
+      "電力・ガス"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1628.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Transportation & Logistics",
+    "aliases": [
+      "運輸・物流"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1629.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Commercial & Wholesale Trade",
+    "aliases": [
+      "商社・卸売"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1630.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Retail Trade",
+    "aliases": [
+      "小売"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1631.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Banks",
+    "aliases": [
+      "銀行",
+      "banks"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1632.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Financials ex Banks",
+    "aliases": [
+      "金融（除く銀行）"
+    ],
+    "benchmark": "1306.T"
+  },
+  {
+    "symbol": "1633.T",
+    "kind": "etf",
+    "display": "TOPIX-17 Real Estate",
+    "aliases": [
+      "不動産"
+    ],
+    "benchmark": "1306.T"
+  }
+]
